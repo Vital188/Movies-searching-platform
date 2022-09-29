@@ -1,41 +1,31 @@
- import { useState, useEffect } from "react";
-
-function Single({ movie }) {
 
 
+function Single({ movie, mov, setMovies}) {
 
-  
+const handleSelect = () => {
+  mov(movie);
+  setMovies([]);
+}
 
-   
-  
-        
-
-    
-  // const [searchMovies, setSearchMovies] = useState("");
-
-  // useEffect(() => {
-  //     const results = movie.filter(mv =>
-  //       mv.toLowerCase().includes(searchMovies)
-  //     );
-  //     setSearchResults(results);
-  //   }, [searchMovies]);
 
   return (
-    <div className="box" >
+    
+    <div className="box2" >
       <div className="dropdown-content" style={{
             fontSize: '18px',
             color: "black"
           }}
        >
-        <button 
+        <div onClick={handleSelect}
           style={{
             fontSize: '18px',
-            color: "black"
+            color: "black",
+            backgroundColor: 'none'
           }}
         >
-        {movie.title}
-        </button>
-      </div>
+        Movie:{movie.title}, Ranking: {movie.popularity}, Date:{movie.release_date}
+        </div>
+        </div>
     </div>
   );
 }

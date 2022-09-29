@@ -1,11 +1,13 @@
 import Single from "./Single";
 import { useEffect, useState } from "react";
+import Edit from "./Edit";
 
 function All() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [movies, setMovies] = useState([]);
   const [searchMovies, setSearchMovies] = useState("");
+  const [selectMovie, setSelectMovie] = useState(null);
 
   
    const searchMovieFn = () => { fetch(
@@ -33,21 +35,30 @@ function All() {
     {searchMovieFn()}
    }, [searchMovies])
 
+  useEffect (() => {
+     if(searchMovies.length !== 3)
+     {setMovies(null)
+    setSelectMovie(null)}
+    }, [searchMovies])   
+
   return (
-    <div>
+    <div className="box3">
+      <div className="box">
       <input
         type="text"
         placeholder="Search"
         value={searchMovies}
         onChange={handleChange}
         style={{
-          width: "900px",
+          width: "700px",
         }}
       ></input>
+      </div>
       {
-      movies?.slice(0,7)?.map((movie)  => (
-      <Single  key={movie.id}  movie={movie} />
+      movies?.sort((a,b) => b.popularity- a.popularity)?.slice(0,7)?.map((movie)=> (
+      <Single  key={movie.id}  movie={movie} mov={setSelectMovie} setMovies={setMovies} />
       ))}
+      < Edit movie={selectMovie} />
     </div>
   );
 }
